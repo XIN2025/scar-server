@@ -1,0 +1,13 @@
+app.egg-info/**
+**/__pycache__/**
+.pytest_cache/**
+.ruff_cache/**
+.mypy_cache/**
+.DS_Store
+.env
+venv
+.venv
+faiss_index_maps.pkl
+faiss_index.bin
+build
+.coverage

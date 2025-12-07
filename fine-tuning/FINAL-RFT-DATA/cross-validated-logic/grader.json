@@ -1,0 +1,62 @@
+{
+  "type": "multi",
+  "graders": {
+    "overall_structure": {
+      "name": "overall_structure_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "rouge_l"
+    },
+    "semantic_accuracy": {
+      "name": "semantic_pattern_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "cosine"
+    },
+    "pattern_detail": {
+      "name": "pattern_detail_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "meteor"
+    },
+    "risk_cluster_check": {
+      "name": "risk_cluster_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Risk Cluster%"
+    },
+    "core_symptom_check": {
+      "name": "core_symptom_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Core Symptom%"
+    },
+    "supporting_metrics_check": {
+      "name": "supporting_metrics_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Supporting Metrics%"
+    },
+    "pattern_narrative_quality": {
+      "name": "pattern_narrative_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "bleu"
+    },
+    "multimodal_synthesis": {
+      "name": "cross_validation_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%pattern%"
+    }
+  },
+  "calculate_output": "0.25 * semantic_accuracy + 0.20 * pattern_detail + 0.15 * overall_structure + 0.12 * risk_cluster_check + 0.10 * core_symptom_check + 0.10 * supporting_metrics_check + 0.08 * pattern_narrative_quality"
+}

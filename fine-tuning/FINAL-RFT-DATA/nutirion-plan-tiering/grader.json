@@ -1,0 +1,62 @@
+{
+  "type": "multi",
+  "graders": {
+    "overall_structure": {
+      "name": "overall_structure_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "rouge_l"
+    },
+    "semantic_accuracy": {
+      "name": "semantic_nutrition_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "cosine"
+    },
+    "nutrition_detail": {
+      "name": "nutrition_detail_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "meteor"
+    },
+    "reset_phase_check": {
+      "name": "reset_phase_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Reset%"
+    },
+    "rebuild_phase_check": {
+      "name": "rebuild_phase_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Rebuild%"
+    },
+    "sustain_phase_check": {
+      "name": "sustain_phase_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Sustain%"
+    },
+    "timeline_accuracy": {
+      "name": "timeline_integration_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "bleu"
+    },
+    "food_specificity": {
+      "name": "food_category_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%leafy greens%"
+    }
+  },
+  "calculate_output": "0.25 * semantic_accuracy + 0.20 * nutrition_detail + 0.15 * overall_structure + 0.12 * reset_phase_check + 0.12 * rebuild_phase_check + 0.12 * sustain_phase_check + 0.04 * food_specificity"
+}

@@ -1,0 +1,62 @@
+{
+  "type": "multi",
+  "graders": {
+    "overall_structure": {
+      "name": "overall_structure_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "rouge_l"
+    },
+    "semantic_accuracy": {
+      "name": "semantic_system_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "cosine"
+    },
+    "system_detail": {
+      "name": "system_detail_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "meteor"
+    },
+    "system_column_check": {
+      "name": "system_column_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%System%"
+    },
+    "supplement_column_check": {
+      "name": "supplement_column_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Supplement%"
+    },
+    "duration_column_check": {
+      "name": "duration_column_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Duration%"
+    },
+    "notes_integration": {
+      "name": "notes_integration_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Notes%"
+    },
+    "system_rationale": {
+      "name": "system_rationale_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "bleu"
+    }
+  },
+  "calculate_output": "0.25 * semantic_accuracy + 0.20 * system_detail + 0.15 * overall_structure + 0.12 * system_column_check + 0.10 * supplement_column_check + 0.08 * duration_column_check + 0.10 * system_rationale"
+}

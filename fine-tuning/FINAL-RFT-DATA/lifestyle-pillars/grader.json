@@ -1,0 +1,76 @@
+{
+  "type": "multi",
+  "graders": {
+    "overall_structure": {
+      "name": "overall_structure_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "rouge_l"
+    },
+    "semantic_accuracy": {
+      "name": "semantic_lifestyle_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "cosine"
+    },
+    "lifestyle_detail": {
+      "name": "lifestyle_detail_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "meteor"
+    },
+    "sleep_pillar_check": {
+      "name": "sleep_pillar_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Sleep%"
+    },
+    "movement_pillar_check": {
+      "name": "movement_pillar_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Movement%"
+    },
+    "nutrition_pillar_check": {
+      "name": "nutrition_pillar_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Nutrition%"
+    },
+    "mindfulness_pillar_check": {
+      "name": "mindfulness_pillar_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Mindfulness%"
+    },
+    "social_pillar_check": {
+      "name": "social_connection_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Social Connection%"
+    },
+    "environment_pillar_check": {
+      "name": "environment_pillar_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Environment%"
+    },
+    "actionable_routines": {
+      "name": "actionable_content_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "bleu"
+    }
+  },
+  "calculate_output": "0.25 * semantic_accuracy + 0.20 * lifestyle_detail + 0.15 * overall_structure + 0.08 * sleep_pillar_check + 0.08 * movement_pillar_check + 0.06 * nutrition_pillar_check + 0.06 * mindfulness_pillar_check + 0.06 * social_pillar_check + 0.06 * environment_pillar_check"
+}

@@ -1,0 +1,8 @@
+node_modules
+**/__pycache__
+**/.env
+app/google-services.json
+venv
+.venv
+**/.DS_STORE
+**/app.log

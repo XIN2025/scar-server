@@ -1,0 +1,62 @@
+{
+  "type": "multi",
+  "graders": {
+    "overall_structure": {
+      "name": "overall_structure_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "rouge_l"
+    },
+    "semantic_accuracy": {
+      "name": "semantic_goals_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "cosine"
+    },
+    "goals_detail": {
+      "name": "goals_detail_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "meteor"
+    },
+    "goal_column_check": {
+      "name": "goal_column_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Goal%"
+    },
+    "therapeutic_focus_check": {
+      "name": "therapeutic_focus_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Therapeutic Focus%"
+    },
+    "target_system_check": {
+      "name": "target_system_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Target System%"
+    },
+    "supporting_data_check": {
+      "name": "supporting_data_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Supporting Data%"
+    },
+    "motivational_tone": {
+      "name": "motivational_tone_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "bleu"
+    }
+  },
+  "calculate_output": "0.25 * semantic_accuracy + 0.20 * goals_detail + 0.15 * overall_structure + 0.10 * goal_column_check + 0.10 * therapeutic_focus_check + 0.10 * target_system_check + 0.10 * motivational_tone"
+}

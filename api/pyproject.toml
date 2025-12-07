@@ -1,0 +1,70 @@
+[project]
+name = "app"
+version = "0.1.0"
+description = "fastapi-Project-Engine"
+authors = [
+    {name = "Sourabh Mishra",email = "sourabhmishra1262@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12.0"
+
+dependencies = [
+    "fastapi (>=0.115.12,<0.116.0)",
+    "gunicorn>=23.0.0",
+    "uvicorn[standard] (>=0.34.2,<0.35.0)",
+    "python-multipart>=0.0.6",
+    "neo4j>=5.0.0",
+    "faiss-cpu>=1.7.4",
+    "sentence-transformers>=2.2.2",
+    "langgraph>=0.0.20",
+    "langchain>=0.1.0",
+    "spacy[en-core-web-sm]>=3.7.0",
+    "pymupdf>=1.24.0",
+    "python-dotenv>=1.0.0",
+    "numpy>=1.24.0",
+    "motor>=3.3.0",
+    "PyPDF2>=3.0.0",
+    "python-docx>=0.8.11",
+    "aiohttp>=3.8.0",
+    "pydantic[email]>=2.11.3",
+    "langchain-openai>=0.3.28",
+    "openai>=1.98.0",
+    "langchain-mongodb>=0.7.0",
+    "pytest>=8.3.5",
+    "pip>=25.2",
+    "apscheduler>=3.11.0",
+    "firebase-admin>=7.1.0",
+    "pypandoc>=1.15",
+    "PyJWT>=2.9.0",
+    "pytest-cov>=6.1.1",
+    "pytest-asyncio>=1.2.0",
+    "websockets>=15.0",
+    "Pillow>=10.0.0",
+    "mem0ai>=1.0.0",
+    "tf-keras>=2.15.0",
+]
+
+# Note: TF_USE_LEGACY_KERAS=1 environment variable is automatically set in server scripts
+# (dev_server.py and prod_server.py) to ensure transformers uses tf-keras instead of keras 3
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.3.0",
+    "mypy>=1.8.0",
+    "pytest-cov>=4.1.0",
+    "httpx>=0.27.0",
+]
+
+[project.scripts]
+dev = "scripts.dev_server:main"
+prod = "scripts.prod_server:main"
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+select = ["E", "F", "I", "B", "C4", "UP", "N", "RUF"]
+ignore = []
+
+[tool.ruff.isort]
+known-first-party = ["app"]

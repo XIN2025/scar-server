@@ -1,0 +1,55 @@
+{
+  "type": "multi",
+  "graders": {
+    "overall_structure": {
+      "name": "overall_structure_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "rouge_l"
+    },
+    "semantic_accuracy": {
+      "name": "semantic_medical_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "cosine"
+    },
+    "clinical_detail": {
+      "name": "clinical_detail_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "meteor"
+    },
+    "tier1_check": {
+      "name": "tier1_foundational_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Tier 1:%"
+    },
+    "tier2_check": {
+      "name": "tier2_lifestyle_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Tier 2:%"
+    },
+    "tier3_check": {
+      "name": "tier3_optimization_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Tier 3:%"
+    },
+    "biomarker_accuracy": {
+      "name": "biomarker_integration_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "bleu"
+    }
+  },
+  "calculate_output": "0.25 * semantic_accuracy + 0.20 * clinical_detail + 0.15 * overall_structure + 0.10 * tier1_check + 0.10 * tier2_check + 0.10 * tier3_check + 0.10 * biomarker_accuracy"
+}

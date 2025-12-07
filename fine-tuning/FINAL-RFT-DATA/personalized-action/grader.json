@@ -1,0 +1,62 @@
+{
+  "type": "multi",
+  "graders": {
+    "overall_structure": {
+      "name": "overall_structure_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "rouge_l"
+    },
+    "semantic_accuracy": {
+      "name": "semantic_supplement_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "cosine"
+    },
+    "supplement_detail": {
+      "name": "supplement_detail_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "meteor"
+    },
+    "table_structure_check": {
+      "name": "table_structure_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Supplement%Dose%"
+    },
+    "biomarker_trigger_check": {
+      "name": "biomarker_integration_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Biomarker Trigger%"
+    },
+    "duration_check": {
+      "name": "duration_guidance_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Duration%"
+    },
+    "cycling_note_check": {
+      "name": "cycling_strategy_grader",
+      "type": "string_check",
+      "input": "{{sample.output_text}}",
+      "operation": "like",
+      "reference": "%Cycling Note%"
+    },
+    "supplement_rationale": {
+      "name": "supplement_rationale_grader",
+      "type": "text_similarity",
+      "input": "{{sample.output_text}}",
+      "reference": "{{item.answer}}",
+      "evaluation_metric": "bleu"
+    }
+  },
+  "calculate_output": "0.25 * semantic_accuracy + 0.20 * supplement_detail + 0.15 * overall_structure + 0.12 * table_structure_check + 0.10 * biomarker_trigger_check + 0.08 * duration_check + 0.10 * supplement_rationale"
+}
